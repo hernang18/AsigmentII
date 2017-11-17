@@ -47,3 +47,42 @@ BEGIN
     UPDATE INVENTORY SET UNITS_AVAILABLE=UNITS_AVAILABLE+20 WHERE ID=CUR_VAR.INVENTORY_ID;  
   end LOOP;
 END reorder_units;
+
+--6
+--Contexto
+CREATE CONTEXT app_ctx_BillID USING pk_BillID_app_context;
+
+--Paquete Contexto
+CREATE OR REPLACE PACKAGE pk_BillID_app_context AS
+  -- El contexto tendra un unico valor Bill_ID
+  PROCEDURE set_BillId (p_BillID IN NUMBER);
+END;
+
+CREATE OR REPLACE PACKAGE BODY pk_BillID_app_context AS
+  PROCEDURE set_BillId (p_BillID IN NUMBER) IS
+  BEGIN
+    DBMS_SESSION.SET_CONTEXT('app_ctx_BillID', 'BillID', p_BillID);
+  END;
+END;
+
+--Setear  Contexto
+BEGIN
+pk_BillID_app_context.set_BillId(1);
+END;
+
+CREATE OR REPLACE VIEW Bill_Details
+AS
+  SELECT 
+  IH.ID as "bill_id",CSP.SALESPERSON_ID as "sales_person_id",SP.NAME as "name_of_salesperson",C.ID as "client_id",
+  C.NAME AS "name_of_client",V.ID AS "vehicle_id", V.NAME AS "brand_of_vehicle", MF.NAME AS "manufacturer_of_vehicle",
+  POPT.PURCHASEOPTION_ID AS "accesory_id",OPT.NAME AS "name_of_accesory"
+  FROM INVOICEHEAD IH 
+                      INNER JOIN  CUSTOMER_SALESPERSON CSP ON IH.CUSTOMER_SALESPERSON_ID=CSP.ID  
+                      INNER JOIN  SALESPERSON SP ON CSP.SALESPERSON_ID=SP.ID
+                      INNER JOIN  CUSTOMER C ON CSP.CUSTOMER_ID=C.ID
+                      INNER JOIN  INVOICEDTL DTL ON IH.ID =DTL.INVOICEHEAD_ID
+                      INNER JOIN  VEHICLE V ON DTL.VEHICLE_ID=V.ID
+                      INNER JOIN  INVOICEDTL_PURCHASEOPTION POPT ON DTL.ID=POPT.INVOICEDTL_ID
+                      INNER JOIN  PURCHASEOPTION OPT ON POPT.PURCHASEOPTION_ID=OPT.ID
+                      INNER JOIN  MANUFACTURE MF ON V.MANUFACTURE_ID=MF.ID
+  WHERE IH.ID=sys_context('app_ctx_BillID','BillID');
