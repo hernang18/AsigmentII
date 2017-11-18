@@ -86,3 +86,58 @@ AS
                       INNER JOIN  PURCHASEOPTION OPT ON POPT.PURCHASEOPTION_ID=OPT.ID
                       INNER JOIN  MANUFACTURE MF ON V.MANUFACTURE_ID=MF.ID
   WHERE IH.ID=sys_context('app_ctx_BillID','BillID');
+  
+  --7. Explain Plan Bill_Details View
+  REM INSERTING into EXPORT_TABLE
+SET DEFINE OFF;
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('Plan hash value: 2561785135');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values (' ');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('------------------------------------------------------------------------------------------------------------------');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('| Id  | Operation                            | Name                      | Rows  | Bytes | Cost (%CPU)| Time     |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('------------------------------------------------------------------------------------------------------------------');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   0 | SELECT STATEMENT                     |                           |     1 |   171 |     5   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   1 |  NESTED LOOPS                        |                           |     1 |   171 |     5   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   2 |   NESTED LOOPS                       |                           |     1 |   171 |     5   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   3 |    NESTED LOOPS                      |                           |     1 |   161 |     4   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   4 |     NESTED LOOPS                     |                           |     1 |   139 |     4   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   5 |      NESTED LOOPS                    |                           |     1 |   100 |     4   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   6 |       NESTED LOOPS                   |                           |     1 |    82 |     4   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   7 |        NESTED LOOPS                  |                           |     1 |    56 |     2   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   8 |         NESTED LOOPS                 |                           |     1 |    46 |     1   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|   9 |          NESTED LOOPS                |                           |     1 |    35 |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|  10 |           TABLE ACCESS BY INDEX ROWID| INVOICEHEAD               |     1 |    26 |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 11 |            INDEX UNIQUE SCAN         | SYS_C008607               |     1 |       |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|  12 |           TABLE ACCESS BY INDEX ROWID| CUSTOMER_SALESPERSON      |     1 |     9 |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 13 |            INDEX UNIQUE SCAN         | SYS_C008603               |     1 |       |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|  14 |          TABLE ACCESS BY INDEX ROWID | CUSTOMER                  |     1 |    11 |     1   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 15 |           INDEX UNIQUE SCAN          | SYS_C008589               |     1 |       |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|  16 |         TABLE ACCESS BY INDEX ROWID  | SALESPERSON               |     1 |    10 |     1   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 17 |          INDEX UNIQUE SCAN           | SYS_C008586               |     1 |       |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|  18 |        TABLE ACCESS FULL             | INVOICEDTL_PURCHASEOPTION |     1 |    26 |     2   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|  19 |       TABLE ACCESS BY INDEX ROWID    | PURCHASEOPTION            |     1 |    18 |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 20 |        INDEX UNIQUE SCAN             | SYS_C008613               |     1 |       |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 21 |      TABLE ACCESS BY INDEX ROWID     | INVOICEDTL                |     1 |    39 |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 22 |       INDEX UNIQUE SCAN              | SYS_C008563               |     1 |       |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|  23 |     TABLE ACCESS BY INDEX ROWID      | VEHICLE                   |     1 |    22 |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 24 |      INDEX UNIQUE SCAN               | SYS_C008621               |     1 |       |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|* 25 |    INDEX UNIQUE SCAN                 | MANUFACTURE_PK            |     1 |       |     0   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('|  26 |   TABLE ACCESS BY INDEX ROWID        | MANUFACTURE               |     1 |    10 |     1   (0)| 00:00:01 |');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('------------------------------------------------------------------------------------------------------------------');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values (' ');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('Predicate Information (identified by operation id):');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('---------------------------------------------------');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values (' ');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  11 - access("IH"."ID"=1)');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  13 - access("IH"."CUSTOMER_SALESPERSON_ID"="CSP"."ID")');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  15 - access("CSP"."CUSTOMER_ID"="C"."ID")');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  17 - access("CSP"."SALESPERSON_ID"="SP"."ID")');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  20 - access("POPT"."PURCHASEOPTION_ID"="OPT"."ID")');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  21 - filter("DTL"."INVOICEHEAD_ID"=1)');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  22 - access("DTL"."ID"="POPT"."INVOICEDTL_ID")');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  24 - access("DTL"."VEHICLE_ID"="V"."ID")');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('  25 - access("MF"."ID"=TO_NUMBER("V"."MANUFACTURE_ID"))');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values (' ');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('Note');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('-----');
+Insert into EXPORT_TABLE (PLAN_TABLE_OUTPUT) values ('   - this is an adaptive plan');
+
